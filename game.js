@@ -1,8 +1,12 @@
 game = Object.create(Game.prototype);
 game.keys = ['A', 'S', 'D', 'F'];
+var BindKeys = function() {
 for (var i = 0; i < game.keys.length; i++){
   atom.input.bind(atom.key[game.keys[i]], game.keys[i]);
-};
+}
+}
+BindKeys();
+
 atom.currentMoleTime = 0;
 atom.tillNewMole = 2;
 game.update = function(dt) {
@@ -39,9 +43,11 @@ game.bop = {
     if(this.total >= 20){
       atom.tillNewMole = 1;
       game.keys = ['A', 'S', 'D', 'F', 'G'];
-      game.hole.draw();
-}
-    }
+      BindKeys();
+      game.makeHoles();
+      game.drawHoles();
+    } 
+  }
     else{
       this.total = this.total-1;
 
@@ -82,7 +88,7 @@ game.drawHoles = function(holeLabels, xOffset, yOffset){
 };
 game.hole = {
   size: 40,
-  spacing: 280,
+  spacing: 150,
   color: '#311',
   labelOffset: 140,
   labelColor: '#000',
