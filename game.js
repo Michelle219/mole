@@ -6,13 +6,13 @@ for (var i = 0; i < game.keys.length; i++){
 }
 }
 BindKeys();
-
+var x = 4;
 atom.currentMoleTime = 0;
 atom.tillNewMole = 2;
 game.update = function(dt) {
   atom.currentMoleTime = atom.currentMoleTime + dt;
   if (atom.currentMoleTime > atom.tillNewMole){
-    game.activeMole = Math.floor(Math.random()*4);
+    game.activeMole = Math.floor(Math.random()*x);
     atom.currentMoleTime = 0;
     if(game.bop.bopped === false){
       game.bop.total = game.bop.total-1;
@@ -40,12 +40,20 @@ game.bop = {
       this.total = this.total+1;
       game.activeMole = -1;
       this.bopped = true;
-    if(this.total >= 20){
+    if(this.total == 20 && x != 5){
       atom.tillNewMole = 1;
-      game.keys = ['A', 'S', 'D', 'F', 'G'];
+      x = 5;
+      game.keys.push ('G');
       BindKeys();
-      game.makeHoles();
-      game.drawHoles();
+      game.makeHoles(game.keys, 145, atom.height/2 + 85);
+    } 
+    if(this.total == 50 && x != 6){
+      atom.tillNewMole = .5;
+      x = 6;
+      game.keys.push ('H');
+      BindKeys();
+      game.makeHoles(game.keys, 145, atom.height/2 + 85);
+      
     } 
   }
     else{
@@ -88,7 +96,7 @@ game.drawHoles = function(holeLabels, xOffset, yOffset){
 };
 game.hole = {
   size: 40,
-  spacing: 150,
+  spacing: 200,
   color: '#311',
   labelOffset: 140,
   labelColor: '#000',
