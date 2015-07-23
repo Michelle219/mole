@@ -1,0 +1,2 @@
+We were trying to make the game more interesting by making it get progessively harder. 
+We accomplished this by speeding up the mole speed and adding more holes as you get more points.
